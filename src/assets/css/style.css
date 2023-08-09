@@ -8,3 +8,15 @@ body{
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.bg-color1{
+    background-color: #24315FFF;
+}
+
+#ft-color1{
+    color:azure;
+}
+
+#ft-color2{
+    color: #FAE48BFF;
+}

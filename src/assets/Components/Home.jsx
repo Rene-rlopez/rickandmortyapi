@@ -40,7 +40,7 @@ export default function Home() {
                 </div>
             </section>
             <section className="bg-dark text-white fw-light">
-                <h2>¡Bienvenidos!</h2>
+                <h2>Bienvenidos!</h2>
                 <p className='fs-3'>
                     "Esta es una fanpage oficial de 'Rick and Morty', Únete a nosotros en un alucinante viaje interdimensional lleno de aventuras extravagantes y humor ácido. Somos una comunidad apasionada que celebra esta innovadora serie de animación creada por Justin Roiland y Dan Harmon. Sigue las hilarantes travesías de Rick Sánchez, el brillante pero excéntrico científico alcohólico, y su nieto Morty Smith mientras exploran universos paralelos, desafían las leyes de la física y enfrentan situaciones cómicas y a menudo peligrosas. Aquí encontrarás imágenes de personajes favoritos. ¡Prepárate para adentrarte en la mente retorcida de Rick y disfrutar de momentos inolvidables junto a Morty! Fanpage dedicada a los fans de 'Rick and Morty'. <strong>¡Wubba lubba dub dub!</strong>"
                 </p>
