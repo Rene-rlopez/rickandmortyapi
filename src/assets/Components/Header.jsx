@@ -19,8 +19,8 @@ export default function Header(){
                             </button>
                             <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li className="nav-item">
-                                <Link to='/' className="nav-Link mx-2" id='ft-color1' aria-current="page" href="#">Home</Link>
+                                <li className="nav-item mx-2">
+                                <Link to='/' className="nav-Link" id='ft-color1' aria-current="page" href="#">Home</Link>
                                 </li>
                                 <li className="nav-item mx-2">
                                 <Link to='/Characters' className="nav-Link" id='ft-color1' href="#">Characters</Link>
