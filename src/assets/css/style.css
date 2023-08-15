@@ -13,10 +13,27 @@ body{
     background-color: #24315FFF;
 }
 
+.bg-color2{
+    background-color: #B7E4F9FF;
+}
+
+.bg-color3{
+    background-color: #032830;
+}
+
+.bg-color4{
+    background-color: #F5F5F5F5;
+}
+
+
 #ft-color1{
     color:azure;
 }
 
 #ft-color2{
     color: #FAE48BFF;
+}
+
+#ft-color3{
+    color:#161719;
 }
