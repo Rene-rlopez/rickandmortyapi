@@ -6,15 +6,15 @@ export default function Search() {
 
     const [nombre, setNombre] = useState("");
 
+    const [filterEstado, setFilterEstado] = useState(''); 
+
     const getPersonajeByNombre = () => {
-        axios.get(`https://rickandmortyapi.com/api/character/?name=${nombre}`).then((response) => {
+        axios.get(`https://rickandmortyapi.com/api/character/?name=${nombre}&status=${filterEstado}`).then((response) => {
             setPersonaje(response.data.results);
         }).catch((error) => {
             console.log(error);
         })
     }
-
-
 
     const handleName = (e) => {
         console.log(e.target.value);
@@ -31,24 +31,35 @@ export default function Search() {
         }
     }
 
+        const getBorderColor = (status) => {
+            switch (status) {
+            case "Dead":
+                return "red";
+            case "Alive":
+                return "green";
+            default:
+                return "blue";
+            }
+        }
+
     console.log(personaje);
 
     return (
-        <div className='mt-5'>
-			<div className='container'>
-                <div className="text-white p-5 mb-2 bg-color1 rounded-4">
+        <div className='container py-5'>
+			<div>
+                <div className="text-white p-3 bg-color1 rounded-4">
                     <h1>Busqueda de personajes</h1>
 
                     <label className="m-4" htmlFor="">Ingresa el nombre del personaje:</label>
                     <div className="container-fluid">
-                        <div className="input-group">
+                        <div className="input-group p-3">
                         <span className="input-group-text" id="basic-addon1" onClick={buscarPersonaje}><i className="fa-solid fa-magnifying-glass"></i></span>
-                        <input type="text" className="form-control col-md-6" placeholder="Personaje" aria-label="Personaje" aria-describedby="basic-addon1" onChange={handleName} onKeyDown={handleKeyDown}/>
-                        <select className="form-select col-md-4">
+                        <input type="text" className="form-control" placeholder="Personaje" aria-label="Personaje" aria-describedby="basic-addon1" onChange={handleName} onKeyDown={handleKeyDown}/>
+                        <select className="form-select" value={filterEstado} onChange={(e) => setFilterEstado(e.target.value)}>
                             <option value="">Todo</option>
-                            <option value="1">Vivo</option>
-                            <option value="2">Muerto</option>
-                            <option value="3">Desconocido</option>
+                            <option value="alive">Vivo</option>
+                            <option value="dead">Muerto</option>
+                            <option value="unknown">Desconocido</option>
                         </select>
                         </div>
                     </div>
@@ -59,17 +70,17 @@ export default function Search() {
                     personaje.length !==0 ? (
 
 
-                    personaje.map((personaje, indice) => {
+                    personaje.map((personaje) => {
                         return (
-                            <div className='p-4 bg-color4 m-5 rounded'>
+                            <div className='bg-color4 m-5 rounded' style={{ border: `5px solid ${getBorderColor(personaje.status)}` }}>
                                 
                                 <div className='row'>
                                     <div className='col-md-4'>
                                         <img src={personaje.image} className='img-fluid rounded' alt="avatar" />
                                     </div> 
                                     <div className='col-md-8 px-5'>
-                                        <h2 className='text-center mb-4'>Información del personaje #{personaje.id}</h2>
-                                        <p className='text-start'><strong>Identidad:</strong> <spam className='fs-3 fw-bold'>{personaje.name}</spam></p>
+                                        <h2 className='text-center p-4'>Información del personaje #{personaje.id}</h2>
+                                        <p className='text-start'><strong>Identidad:</strong> <span className='fs-3 fw-bold'>{personaje.name}</span></p>
                                         <p className='text-start'><strong>Estado: </strong>{personaje.status}</p>
                                         <p className='text-start'><strong>Especie: </strong>{personaje.species}</p>
                                             

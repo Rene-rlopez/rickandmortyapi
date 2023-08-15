@@ -9,7 +9,7 @@ export default function Header(){
     return(
         <BrowserRouter>
                 
-                    <nav className="navbar navbar-expand-lg fixed-top bg-color1 border-bottom">
+                    <nav className="navbar navbar-expand-md fixed-top bg-color1 border-bottom">
                         <div className="container-fluid">
                             <a className="navbar-brand" id='ft-color2' href="#">
                                 <i className="fa-brands fa-react"></i>Rick&Morty
