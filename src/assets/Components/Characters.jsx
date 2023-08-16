@@ -1,22 +1,46 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Page from './Page';
 
-export default function Characteres() {
-  const [characteres, setCharacteres] = useState([]);
+export default function Characters() {
+  const [personajes, setPersonajes] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [estadoFiltro, setEstadoFiltro] = useState('');
 
-  const obtenerCharacteres = () => {
-    axios.get("https://rickandmortyapi.com/api/character").then((response) => {
-      console.log(response.data.results);
-      setCharacteres(response.data.results);
-    }).catch((error) => {
+  const obtenerPersonajes = async (pageNumber) => {
+    try {
+      const response = await axios.get(`https://rickandmortyapi.com/api/character?page=${pageNumber}`);
+      const data = response.data;
+      setPersonajes(data.results);
+      setTotalPages(data.info.pages);
+    } catch (error) {
       console.log(error);
-    });
-  }
+    }
+  };
 
   useEffect(() => {
-    obtenerCharacteres();
-  }, [])
+    obtenerPersonajes(currentPage);
+  }, [currentPage]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [estadoFiltro]);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prevPage) => prevPage + 1);
+    }
+  };
+
+  const handlePrevPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prevPage) => prevPage - 1);
+    }
+  };
+
+  const personajesFiltrados = personajes.filter((personaje) =>
+    estadoFiltro ? personaje.status === estadoFiltro : true
+  );
 
   const getBorderColor = (status) => {
     switch (status) {
@@ -29,40 +53,54 @@ export default function Characteres() {
     }
   }
 
-  console.log(characteres);
   return (
-    <main className='mt-5'>
-      <div className='container'>
-        <h1 className='text-center text-white'>Personajes De Ricky and Morty</h1>
-        <div className='row'>
-          {
-            characteres.map((item) => {
-              return (
-                <div className='col-md-4 mt-4'>
-                  <div className='card' style={{ border: `3px solid ${getBorderColor(item.status)}` }}>
-                    <h5 className='card-header text-center border-white text-black bg-primary-subtle'>{item.name}</h5>
-                    <div className='card-body'>
-                      <div className='d-flex flex-row justify-content-center'>
-                        <img src={`${item.image}`} alt="" className='img-fluid' />
-                      </div>
-                      <div className='d-flex flex-row justify-content-center'>
-                        <p className='fw-bold'>Id del Personaje: {item.id}</p>
-                      </div>
-                      <div className='d-flex flex-row justify-content-center'>
-                        <p className='fw-bold'>Estado: {item.status}</p>
-                      </div>
-                      <div className='d-flex flex-row justify-content-center'>
-                        <a href={item.status} className='btn btn-secondary'> Ver mas detalles</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )
-            })
-          }
+    <div className="container">
+      <div className="row">
+        <div className="col-md-3"><br /><br />
+          <select className="form-select mb-3" value={estadoFiltro} onChange={(e) => setEstadoFiltro(e.target.value)}>
+            <option value="">Mostrar todos</option>
+            <option value="Alive">Vivo</option>
+            <option value="Dead">Muerto</option>
+            <option value="unknown">Desconocido</option>
+          </select>
         </div>
       </div>
-      <Page />
-    </main>
-  )
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {personajesFiltrados.map((item, index) => (
+          <div className="col" key={index}>
+            <div className='card' style={{ border: `3px solid ${getBorderColor(item.status)}` }}>
+              <img src={item.image} alt="" className="img-fluid" />
+              <div className="card-body">
+                <h5 className="card-title">Name: {item.name}</h5>
+                <ul>
+                  <li>
+                    <strong>Gender: </strong>{item.gender}
+                  </li>
+                  <li>
+                    <strong>Species: </strong>{item.species}
+                  </li>
+                  <li>
+                    <strong>Location: </strong>{item.origin.name}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div><br />
+      <nav aria-label="Page navigation example">
+        <ul className="pagination justify-content-center">
+          <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+            <button className="page-link" onClick={handlePrevPage}>Previous </button>
+          </li>
+          <li className="page-item">
+            <span className="page-link">{currentPage}</span>
+          </li>
+          <li className="page-item">
+            <button className="page-link" onClick={handleNextPage}>Next</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  );
 }
