@@ -6,7 +6,7 @@ import teamAvatar from '../img/personal_site.svg'
 export default function MyProfile() {
     return (
 
-        <main className='developers text-center'>
+        <main className='developers text-center bg-light.bg-gradient shadow-lg p-3 mb-5 bg-body rounded'>
             <h2>Developers</h2>
             <h3>Estos son los integrantes del equipo que desarrollo este sitio:</h3>
 
