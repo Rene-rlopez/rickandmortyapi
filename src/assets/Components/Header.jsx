@@ -4,6 +4,7 @@ import Home from './Home.jsx'
 import Characters from './Characters.jsx'
 import Search from './Search.jsx'
 import Developers from './Developers.jsx'
+import Logout from './Logout.jsx';
 
 export default function Header(){
     return(
@@ -31,8 +32,11 @@ export default function Header(){
                                 <li className="nav-item mx-2">
                                 <Link to='/Developers' className="nav-Link" id='ft-color1' href="#">Developers</Link>
                                 </li>
+                                <li>
+                                    
+                                </li>
                             </ul>
-                                <button className="btn btn-outline-success" type="submit"> Login</button>
+                            <Logout className="btn btn-outline-success"/>
                             </div>
                         </div>
                     </nav>
