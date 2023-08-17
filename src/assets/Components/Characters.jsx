@@ -69,9 +69,11 @@ export default function Characters() {
         {personajesFiltrados.map((item, index) => (
           <div className="col" key={index}>
             <div className='card' style={{ border: `3px solid ${getBorderColor(item.status)}` }}>
+            <div class="card-header">
+                <h5 className="card-title">{item.name}</h5>
+            </div>
               <img src={item.image} alt="" className="img-fluid" />
               <div className="card-body">
-                <h5 className="card-title">Name: {item.name}</h5>
                 <ul>
                   <li>
                     <strong>Gender: </strong>{item.gender}
