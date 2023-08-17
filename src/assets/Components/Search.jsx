@@ -12,6 +12,7 @@ export default function Search() {
         axios.get(`https://rickandmortyapi.com/api/character/?name=${nombre}&status=${filterEstado}`).then((response) => {
             setPersonaje(response.data.results);
         }).catch((error) => {
+            setPersonaje([]);
             console.log(error);
         })
     }
